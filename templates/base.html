@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WELCOME TO MY BOOK ALCHEMY</title>
+</head>
+<body>
+    <h1><strong>WELCOME TO MY BOOK ALCHEMY</strong></h1>
+    <div>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('add_book') }}">Add Book</a>
+        <a href="{{ url_for('add_author') }}">Add Author</a>
+    </div>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
