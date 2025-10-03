@@ -19,7 +19,7 @@ class Book(db.Model):
     title = db.Column(db.String(32)) #binäre schwellenwerte
     publication_year = db.Column(db.Integer)
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id")) # FOREIGNKEY neue Spalte die die ID des autor abspeichern
-
+    author = db.relationship("Author", backref="books")
 
 
 

@@ -8,8 +8,8 @@
     <h1><strong>WELCOME TO MY BOOK ALCHEMY</strong></h1>
     <div>
         <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('add_book') }}">Add Book</a>
         <a href="{{ url_for('add_author') }}">Add Author</a>
+        <a href="{{ url_for('add_book') }}">Add Book</a>
     </div>
     <main class="container">
         {% block content %}{% endblock %}

@@ -17,9 +17,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(basedir, 'data
 db.init_app(app) # 4. initialize the app with the extension
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
-    return render_template("home.html")
+    books = Book.query.all()  # holt alle bücher raus
+    return render_template("home.html", books=books)
 
 
 @app.route("/add_author", methods=["GET", "POST"])
@@ -28,11 +29,12 @@ def add_author():
     if request.method == "POST":    # bei GET & POST requests, immer mit "if POST" anfangen, dann "else GET"
         name = request.form["name"]   # Ich habe eine HTML Form, welche Daten erwartet meine authors tabelle?
         birth_date_str = request.form["birth_date"]
-        death_date_str = request.form["date_of_death"]
-
-        # Wandelt "11.06.1986" in ein datetime.date Objekt um
         birth_date = datetime.strptime(birth_date_str, "%d.%m.%Y").date()
-        date_of_death = datetime.strptime(death_date_str, "%d.%m.%Y").date()
+        death_date_str = request.form["date_of_death"]
+        if death_date_str:
+            date_of_death = datetime.strptime(death_date_str, "%d.%m.%Y").date()
+        else:
+            date_of_death = None
 
         # neuen Author instanziiert
         new_author = Author(

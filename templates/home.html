@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>HOME PAGE</h2>
-<p>
-  LOREM IPSUM
-</p>
+<h2>YOUR LIBRARY</h2>
+<ul>
+    {% for book in books %}
+      <li>
+          {{ book.title }}<br>
+          {{ book.author.name }}<br>
+        <img src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg" alt="Cover of {{ book.title }}" height="150">
+      </li>
+    {% endfor %}
+</ul>
+
 {% endblock %}
