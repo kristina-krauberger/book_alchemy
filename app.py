@@ -19,7 +19,15 @@ db.init_app(app) # 4. initialize the app with the extension
 
 @app.route("/", methods=["GET"])
 def home():
-    books = Book.query.all()  # holt alle bücher raus
+    sort = request.args.get("sort")
+
+    if sort == "title":
+        books = Book.query.order_by(Book.title).all()
+    elif sort == "author":
+        books = Book.query.join(Author).order_by(Author.name).all()
+    else:
+        books = Book.query.all()
+
     return render_template("home.html", books=books)
 
 
