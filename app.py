@@ -92,8 +92,15 @@ def add_book():
 @app.route("/book/<int:book_id>/delete", methods=["POST"])
 def delete_book(book_id):
     book = Book.query.get(book_id)
+    author = book.author  # Zugriff auf den zugehörigen Autor
     db.session.delete(book)
     db.session.commit()
+
+    # Jetzt neu prüfen, ob der Autor noch Bücher hat
+    if author and len(author.books) == 0:
+        db.session.delete(author)
+        db.session.commit()
+
     flash("Book was successfully deleted", "success_delete")
     return redirect(url_for("home"))
 
@@ -103,5 +110,5 @@ if __name__ == '__main__':
   with app.app_context(): # Google "How to run SQLight flask app" - wichtig, damit db.create_all() funktioniert
     db.create_all()        # erzeugt Tabellen, falls noch nicht vorhanden
 
-  app.run(host="0.0.0.0", port=5005, debug=True) # Google "How to run flask app" - Startet server
+  app.run(host="0.0.0.0", port=5006, debug=True) # Google "How to run flask app" - Startet server
 

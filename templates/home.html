@@ -25,7 +25,10 @@
 <ul>
     {% for book in books %}
       <li>
-          <div style="width: 150px; height: 220px; background-image: url('{{ url_for('static', filename='placeholder.jpg') }}'); background-size: cover;">
+          <div style="width: 150px;
+          height: 220px;
+          background-image: url('{{ url_for('static', filename='placeholder.jpg') }}');
+          background-size: cover;">
               <img
                 src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
                 alt="Cover of {{ book.title }}"
@@ -34,11 +37,11 @@
           </div>
           {{ book.title }}<br>
           {{ book.author.name }}<br>
+          <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST">
+              <button type="submit">Delete</button>
+          </form>
+          <br><br>
       </li>
-    <form action="{{ url_for('delete_book', book_id=book.id) }}" method="POST">
-        <button type="submit">Delete</button>
-    </form>
-    <br><br>
     {% endfor %}
 </ul>
 
