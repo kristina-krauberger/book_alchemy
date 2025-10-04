@@ -20,13 +20,26 @@ db.init_app(app) # 4. initialize the app with the extension
 @app.route("/", methods=["GET"])
 def home():
     sort = request.args.get("sort")
+    search = request.args.get("search")
 
-    if sort == "title":
-        books = Book.query.order_by(Book.title).all()
+    # Baseline-Query - damit setze ich oben variable und je nachdem ob filter oder suchfunktion angewendet wird, speichert er das hier
+    query = Book.query
+
+    # Wenn Suchtext vorhanden → filtere nach Titel
+    if search:
+        query = query.filter(Book.title.ilike(f"%{search}%"))
+
+    # Wenn Suchtext vorhanden und nicht nur Leerzeichen → filtere nach Titel
+    if search and search.strip():
+        query = query.order_by(Book.title)
     elif sort == "author":
-        books = Book.query.join(Author).order_by(Author.name).all()
-    else:
-        books = Book.query.all()
+        query = query.join(Author).order_by(Author.name)
+
+    # Abfrage ausführen
+    books = query.all()
+
+    if not books:
+        flash("No books were found.", "no_results_error")
 
     return render_template("home.html", books=books)
 

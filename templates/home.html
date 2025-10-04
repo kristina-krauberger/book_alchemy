@@ -10,7 +10,15 @@
         <option value="author">Author</option>
     </select>
 </form>
-<div>{% with messages = get_flashed_messages(category_filter=["success_delete"]) %}
+<form action="{{ url_for('home') }}" method="GET">
+    <label for="search">Search books:</label>
+    <input type="text" id="search" name="search">
+    <button type="submit">Search</button>
+    <a href="{{ url_for('home') }}">
+    <button type="button">Undo Search</button>
+</a>
+</form>
+<div>{% with messages = get_flashed_messages(category_filter=["success_delete", "no_results_error"]) %}
         {% if messages %}
             <ul>
                 {% for message in messages %}
