@@ -15,28 +15,31 @@
     <input type="text" id="search" name="search">
     <button type="submit">Search</button>
     <a href="{{ url_for('home') }}">
-    <button type="button">Undo Search</button>
-</a>
+        <button type="button">Undo Search</button>
+    </a>
 </form>
-<div>{% with messages = get_flashed_messages(category_filter=["success_delete", "no_results_error"]) %}
+<div>
+    {% with messages = get_flashed_messages(category_filter=["success_delete",
+    "no_results_error"]) %}
         {% if messages %}
             <ul>
                 {% for message in messages %}
-                <li>
-                    {{ message }}
-                </li>
+                    <li>
+                        {{ message }}
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
-        {% endwith %}
+    {% endwith %}
 </div>
 <ul>
     {% for book in books %}
       <li>
-          <div style="width: 150px;
-          height: 220px;
-          background-image: url('{{ url_for('static', filename='placeholder.jpg') }}');
-          background-size: cover;">
+          <div
+              style="width: 150px;
+                      height: 220px;
+                      background-image: url('{{ url_for('static', filename='placeholder.jpg') }}');
+                      background-size: cover;">
               <img
                 src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
                 alt="Cover of {{ book.title }}"

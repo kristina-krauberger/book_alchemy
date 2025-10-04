@@ -1,8 +1,12 @@
-from flask_sqlalchemy import SQLAlchemy #kein Column
+"""Data models for authors and books using SQLAlchemy."""
 
-db = SQLAlchemy()  # instanziierung des objekts ORM system für Kommunikation mit Datenbank, damit kann ich die Objekte erstellen
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class Author(db.Model):
+    """Represents an author with personal details."""
+
     __tablename__ = "authors"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -12,14 +16,13 @@ class Author(db.Model):
 
 
 class Book(db.Model):
+    """Represents a book with bibliographic information."""
+
     __tablename__ = "books"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    isbn = db.Column(db.String(17)) #mit strichen
-    title = db.Column(db.String(32)) #binäre schwellenwerte
+    isbn = db.Column(db.String(17))
+    title = db.Column(db.String(32))
     publication_year = db.Column(db.Integer)
-    author_id = db.Column(db.Integer, db.ForeignKey("authors.id")) # FOREIGNKEY neue Spalte die die ID des autor abspeichern
+    author_id = db.Column(db.Integer, db.ForeignKey("authors.id"))
     author = db.relationship("Author", backref="books")
-
-
-

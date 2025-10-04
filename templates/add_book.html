@@ -4,18 +4,29 @@
 <h2>ADD YOUR FAVOURITE BOOK</h2>
 <form action="{{ url_for('add_book') }}" method="POST">
     <label for="isbn">Book ISBN:</label>
-    <input type="text" id="isbn" name="isbn"><br><br>
+    <input type="text" id="isbn" name="isbn">
+
+    <br><br>
+
     <label for="title">Book Title:</label>
-    <input type="text" id="title" name="title"><br><br>
+    <input type="text" id="title" name="title">
+
+    <br><br>
+
     <label for="publication_year">Year of Publication:</label>
-    <input type="text" id="publication_year" name="publication_year"><br><br>
+    <input type="text" id="publication_year" name="publication_year">
+
+    <br><br>
+
     <label for="author_id">Choose Author:</label>
     <select id="author_id" name="author_id">
         {% for author in authors %}
             <option value="{{ author.id }}">{{ author.name }}</option>
         {% endfor %}
     </select>
+
     <br><br>
+
     <input type="submit" value="Add New Book">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -27,4 +38,5 @@
         {% endif %}
     {% endwith %}
 </form>
+
 {% endblock %}
