@@ -10,7 +10,7 @@ class Author(db.Model):
     __tablename__ = "authors"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(50))
+    name = db.Column(db.String(50), nullable=False, unique=True)
     birth_date = db.Column(db.Date)
     date_of_death = db.Column(db.Date)
 

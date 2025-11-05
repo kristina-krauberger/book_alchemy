@@ -62,6 +62,11 @@ def add_author():
                 if death_date_str else None
             )
 
+            existing_author = Author.query.filter_by(name=name).first()
+            if existing_author:
+                flash("Oops! An author with this name already exists.", "form_error")
+                return redirect(url_for("add_author"))
+
             new_author = Author(
                 name=name,
                 birth_date=birth_date,
@@ -100,6 +105,11 @@ def add_book():
 
             if not isbn or not title or not publication_year:
                 raise ValueError("All fields must be filled.")
+
+            existing_book = Book.query.filter_by(isbn=isbn).first()
+            if existing_book:
+                flash("Oops! A book with this ISBN already exists in the library.", "form_error")
+                return redirect(url_for("add_book"))
 
             new_book = Book(
                 isbn=isbn,
