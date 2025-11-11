@@ -56,9 +56,9 @@ def add_author():
             if not name or not birth_date_str:
                 raise ValueError("Name and birth date are required.")
 
-            birth_date = datetime.strptime(birth_date_str, "%d.%m.%Y").date()
+            birth_date = datetime.strptime(birth_date_str, "%Y-%m-%d").date()
             date_of_death = (
-                datetime.strptime(death_date_str, "%d.%m.%Y").date()
+                datetime.strptime(death_date_str, "%Y-%m-%d").date()
                 if death_date_str else None
             )
 
