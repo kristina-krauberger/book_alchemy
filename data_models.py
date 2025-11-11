@@ -13,6 +13,7 @@ class Author(db.Model):
     name = db.Column(db.String(50), nullable=False, unique=True)
     birth_date = db.Column(db.Date)
     date_of_death = db.Column(db.Date)
+    books = db.relationship("Book", back_populates="author")
 
 
 class Book(db.Model):
@@ -25,4 +26,4 @@ class Book(db.Model):
     title = db.Column(db.String(32))
     publication_year = db.Column(db.Integer)
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"))
-    author = db.relationship("Author", backref="books")
+    author = db.relationship("Author", back_populates="books")
